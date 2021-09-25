@@ -1,0 +1,19 @@
+{
+    "name": "Ars",
+    "author": [
+        "Ars"
+    ],
+    "short": "Image to Ars",
+    "description": "Btrfs—short for 'B-Tree File System' and frequently pronounced 'butter' or 'butter eff ess'—is the most advanced filesystem present in the mainline Linux kernel.",
+    "install_msg": "Enjoy my stay.",
+    "requirements": [
+        "cairosvg"
+    ],
+    "tags": [
+        "huge"
+    ],
+    "permissions": [
+        "attach_files"
+    ],
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}
