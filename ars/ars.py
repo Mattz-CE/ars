@@ -10,7 +10,6 @@ from redbot.core import commands
 
 
 class Ars(commands.Cog):
-
     """Provides some weird commands"""
 
     def __init__(self, bot):
