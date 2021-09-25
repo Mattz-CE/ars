@@ -25,7 +25,6 @@ class Ars(commands.Cog):
 
     @commands.command(name="fuck")
     async def fuck(self, ctx):
-        # """Fuck (/fʌk/ fuhk) is a profane English-language word."""
         channel = ctx.channel
         convert = False
         await ctx.send("Fuck you")
