@@ -28,4 +28,4 @@ class Ars(commands.Cog):
         channel = ctx.channel
         convert = False
         await ctx.send("Fuck you")
-        await ctx.send("`Error in command 'fuck'. Click link to talk to the dev:` https://bit.ly/3nhMjx5")
+        await ctx.send("`Error in command 'fuck'. Click link to talk to the dev: https://bit.ly/3nhMjx5`")
