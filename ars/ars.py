@@ -24,7 +24,7 @@ class Ars(commands.Cog):
         return
 
     @commands.command(name="fuck", no_pm=True)
-    async def fuck(self, *, ctx):
+    async def fuck(self, ctx):
         channel = ctx.channel
         convert = False
         await ctx.send("Fuck you")
