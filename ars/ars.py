@@ -35,8 +35,7 @@ class Ars(commands.Cog):
     async def rr(self, ctx):
         channel = ctx.channel
         convert = False
-        await ctx.send("https://www.youtube.com/watch?v=iik25wqIuFo")
-        ctx = ctx.ctx
+        # await ctx.send("https://www.youtube.com/watch?v=iik25wqIuFo")
         link = "https://www.youtube.com/watch?v=iik25wqIuFo"
         try:
             player = lavalink.get_player(ctx.guild.id)
