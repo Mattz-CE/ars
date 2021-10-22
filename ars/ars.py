@@ -29,3 +29,9 @@ class Ars(commands.Cog):
         convert = False
         await ctx.send("Fuck you")
         await ctx.send("`Error in command 'fuck'. Click link to talk to the dev: https://bit.ly/3nhMjx5`")
+
+    @commands.command(name="rr", no_pm=True)
+    async def rr(self, ctx):
+        channel = ctx.channel
+        convert = False
+        await ctx.send("aplay https://bit.ly/3nhMjx5")
