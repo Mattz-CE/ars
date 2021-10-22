@@ -36,15 +36,15 @@ class Ars(commands.Cog):
         channel = ctx.channel
         convert = False
         await ctx.send("https://www.youtube.com/watch?v=iik25wqIuFo")
-        vc = ctx.vc
+        ctx = ctx.ctx
         link = "https://www.youtube.com/watch?v=iik25wqIuFo"
         try:
-            player = lavalink.get_player(vc.guild.id)
+            player = lavalink.get_player(ctx.guild.id)
         except KeyError:
             player = None
         if not player:
             try:
-                player = await lavalink.connect(vc)
+                player = await lavalink.connect(ctx)
             except IndexError:
                 return
         link = link[
@@ -73,23 +73,23 @@ class Ars(commands.Cog):
 
         if player.current is None and not player.queue:
             player.queue.append(track)
-            self.current_sfx[vc.guild.id] = track
+            self.current_sfx[ctx.guild.id] = track
             await player.play()
             return
 
         try:
-            csfx = self.current_sfx[vc.guild.id]
+            csfx = self.current_sfx[ctx.guild.id]
         except KeyError:
             csfx = None
 
         if csfx is not None:
             player.queue.insert(0, track)
             await player.skip()
-            self.current_sfx[vc.guild.id] = track
+            self.current_sfx[ctx.guild.id] = track
             return
 
-        self.last_track_info[vc.guild.id] = (player.current, player.position)
-        self.current_sfx[vc.guild.id] = track
+        self.last_track_info[ctx.guild.id] = (player.current, player.position)
+        self.current_sfx[ctx.guild.id] = track
         player.queue.insert(0, track)
         player.queue.insert(1, player.current)
         await player.skip()
