@@ -19,6 +19,10 @@ class Ars(commands.Cog):
         self.bot = bot
         self.session = aiohttp.ClientSession()
 
+        default_config = {"king_dong": 134621854878007296}
+        self._config = Config.get_conf(self, identifier=134621854878007300)
+        self._config.register_global(**default_config)
+
     def cog_unload(self):
         self.bot.loop.create_task(self.session.close())
 
