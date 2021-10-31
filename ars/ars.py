@@ -3,11 +3,13 @@ import functools
 import io
 import logging
 import unicodedata
+import random
 
 import aiohttp
 import discord
 from redbot.core import commands
-import lavalink
+from redbot.core import Config, checks, commands
+from redbot.core.utils.chat_formatting import pagify
 
 
 class Ars(commands.Cog):
@@ -31,64 +33,36 @@ class Ars(commands.Cog):
         await ctx.send("Fuck you")
         await ctx.send("`Error in command 'fuck'. Click link to talk to the dev: https://bit.ly/3nhMjx5`")
 
-    @commands.command(name="rr", no_pm=True)
-    async def rr(self, ctx):
-        channel = ctx.channel
-        convert = False
-        # await ctx.send("https://www.youtube.com/watch?v=iik25wqIuFo")
-        link = "https://www.youtube.com/watch?v=iik25wqIuFo"
-        try:
-            player = lavalink.get_player(ctx.guild.id)
-        except KeyError:
-            player = None
-        if not player:
-            try:
-                player = await lavalink.connect(ctx)
-            except IndexError:
-                return
-        link = link[
-            0
-        ]  # could be rewritten to add ALL links, the tts backend is ready for it
-        tracks = await player.load_tracks(query=link)
-        if not tracks.tracks:
-            if False:
-                provider = voices[author_data["voice"]]["provider"]
-                if provider == "Naver":
-                    await channel.send("Something went wrong.")
-                    return
-                urls = await generate_urls(self, "Clara", text, author_data["speed"])
-                link = urls[0]
-                tracks = await player.load_tracks(query=link)
-                if not tracks.tracks:
-                    await channel.send("Something went wrong.")
-                    return
+    @commands.command(name="c", no_pm=True)
+    async def c(self, ctx):
+        """Starts a conversation with Ars bot"""
 
-            await channel.send(
-                "Something went wrong. It's likely the SFX link is invalid."
-            )
-            return
+    @commands.command()
+    async def penis(self, ctx, *users: discord.Member):
+        """Detects user's penis length
 
-        track = tracks.tracks[0]
+        Enter multiple users for an accurate comparison!"""
 
-        if player.current is None and not player.queue:
-            player.queue.append(track)
-            self.current_sfx[ctx.guild.id] = track
-            await player.play()
-            return
+        dongs = {}
+        msg = ""
+        state = random.getstate()
+        king_dong = await self._config.king_dong()
 
-        try:
-            csfx = self.current_sfx[ctx.guild.id]
-        except KeyError:
-            csfx = None
+        for user in users:
+            random.seed(user.id)
 
-        if csfx is not None:
-            player.queue.insert(0, track)
-            await player.skip()
-            self.current_sfx[ctx.guild.id] = track
-            return
+            if user.id == king_dong:
+                dong_size = 40
+            else:
+                dong_size = random.randint(0, 30)
 
-        self.last_track_info[ctx.guild.id] = (player.current, player.position)
-        self.current_sfx[ctx.guild.id] = track
-        player.queue.insert(0, track)
-        player.queue.insert(1, player.current)
-        await player.skip()
+            dongs[user] = "8{}D".format("=" * dong_size)
+
+        random.setstate(state)
+        dongs = sorted(dongs.items(), key=lambda x: x[1])
+
+        for user, dong in dongs:
+            msg += "**{}'s size:**\n{}\n".format(user.display_name, dong)
+
+        for page in pagify(msg):
+            await ctx.send(page)
