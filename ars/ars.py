@@ -14,6 +14,7 @@ import random
 import aiohttp
 import discord
 
+from discord.ext import commands
 from redbot.core import Config, bank, checks, commands
 from redbot.core.utils.chat_formatting import error, pagify, warning
 from functools import partial
@@ -156,10 +157,6 @@ class Ars(commands.Cog):
         for poll in self.poll_sessions:
             if poll.wait_task is not None:
                 poll.wait_task.cancel()
-
-
-class NewReactPoll():
-    # This can be made a subclass of NewPoll()
 
     def __init__(self, message, text, main):
         self.channel = message.channel
