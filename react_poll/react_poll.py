@@ -69,7 +69,7 @@ class ReactPoll:
     async def check_poll_votes(self, message):
         if message.author.id != self.bot.user.id:
             if self.getPollByChannel(message):
-                    self.getPollByChannel(message).checkAnswer(message)
+                self.getPollByChannel(message).checkAnswer(message)
 
     async def reaction_listener(self, reaction, user):
         # Listener is required to remove bad reactions
@@ -122,10 +122,14 @@ class NewReactPoll():
                 self.duration_text = "{}s".format(dur)
             else:
                 self.duration = 0
-                if day: self.duration += int(day.group(1))*24*60*60
-                if hour: self.duration += int(hour.group(1))*60*60
-                if minute: self.duration += int(minute.group(1))*60
-                if sec: self.duration += int(sec.group(1))
+                if day:
+                    self.duration += int(day.group(1))*24*60*60
+                if hour:
+                    self.duration += int(hour.group(1))*60*60
+                if minute:
+                    self.duration += int(minute.group(1))*60
+                if sec:
+                    self.duration += int(sec.group(1))
             msg.pop()
         # Reaction poll supports maximum of 9 answers and minimum of 2
         if len(msg) < 2 or len(msg) > 10:
@@ -177,18 +181,21 @@ class NewReactPoll():
         msg = "**POLL ENDED!**\n\n{}\n\n".format(self.question)
         for reaction in self.message.reactions:
             if reaction.emoji in self.emojis:
-                self.answers[ord(reaction.emoji[0])-48]["VOTES"] = reaction.count - 1
+                self.answers[ord(reaction.emoji[0]) -
+                             48]["VOTES"] = reaction.count - 1
         await self.client.clear_reactions(self.message)
-        cur_max = 0 # Track the winning number of votes
+        cur_max = 0  # Track the winning number of votes
         # Double iteration probably not the fastest way, but works for now
         for data in self.answers.values():
             if data["VOTES"] > cur_max:
                 cur_max = data["VOTES"]
         for data in self.answers.values():
             if cur_max > 0 and data["VOTES"] == cur_max:
-                msg += "**{} - {} votes**\n".format(data["ANSWER"], str(data["VOTES"]))
+                msg += "**{} - {} votes**\n".format(
+                    data["ANSWER"], str(data["VOTES"]))
             else:
-                msg += "*{}* - {} votes\n".format(data["ANSWER"], str(data["VOTES"]))
+                msg += "*{}* - {} votes\n".format(
+                    data["ANSWER"], str(data["VOTES"]))
         await self.client.send_message(self.channel, msg)
         self.poll_sessions.remove(self)
 
