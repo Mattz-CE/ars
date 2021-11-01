@@ -18,7 +18,7 @@ class ReactPoll:
         self.bot = bot
         self.poll_sessions = []
 
-    @commands.command(pass_context=True, no_pm=True)
+    @commands.command(name="rpoll", pass_context=True, no_pm=True)
     async def rpoll(self, ctx, *text):
         """Starts/stops a reaction poll
         Usage example (time argument is optional, 60s is the default)
