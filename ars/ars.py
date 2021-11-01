@@ -82,10 +82,6 @@ class Ars(commands.Cog):
 
     """Create polls using emoji reactions"""
 
-    def __init__(self, bot):
-        self.bot = bot
-        self.poll_sessions = []
-
     @commands.command(name="rpoll", pass_context=True, no_pm=True)
     async def rpoll(self, ctx, *text):
         """Starts/stops a reaction poll
