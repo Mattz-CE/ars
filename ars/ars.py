@@ -49,8 +49,8 @@ class Ars(commands.Cog):
     async def c(self, ctx):
         """Starts a conversation with Ars bot"""
 
-    @commands.command(name="pp", no_pm=True)
-    async def pp(self, ctx, *users: discord.Member):
+    @commands.command(name="penis", no_pm=True)
+    async def penis(self, ctx, *users: discord.Member):
         """Detects user's penis length
 
         Enter multiple users for an accurate comparison!"""
